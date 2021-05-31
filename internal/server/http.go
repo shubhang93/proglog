@@ -12,6 +12,10 @@ type httpServer struct {
 
 func NewHTTPServer(addr string) *http.Server {
 	r := mux.NewRouter()
+	httpsrv := newHTTPServer()
+	r.HandleFunc("/", httpsrv.handleConsume).Methods("GET")
+	r.HandleFunc("/", httpsrv.handleProduce).Methods("POST")
+
 	return &http.Server{Addr: addr, Handler: r}
 }
 
